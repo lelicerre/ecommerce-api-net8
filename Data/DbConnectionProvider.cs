@@ -9,9 +9,8 @@ public class DbConnectionProvider : IDisposable
 
     public DbConnectionProvider()
     {
-        _connection = new SqliteConnection("Data Source=SharedDb;Mode=Memory;Cache=Shared");
+        _connection = new SqliteConnection("Data Source=file:memdb1?mode=memory&cache=shared");
         _connection.Open();
-
         InitializeSchema();
     }
 

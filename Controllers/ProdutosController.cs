@@ -16,18 +16,21 @@ public class ProdutosController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> Listar() => Ok(await _repo.ListarAsync());
+    public async Task<IActionResult> Listar([FromQuery] int page = 1, [FromQuery] int size = 10)
+    {
+        var (produtos, total) = await _repo.ListarAsync(page, size);
+        return Ok(new { data = produtos, total, page, size });
+    }
 
     [HttpPost]
     public async Task<IActionResult> Inserir(Produto produto)
     {
-        produto.Id = Guid.NewGuid();
         await _repo.InserirAsync(produto);
         return CreatedAtAction(nameof(Listar), new { id = produto.Id }, produto);
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Atualizar(Guid id, Produto produto)
+    public async Task<IActionResult> Atualizar(string id, Produto produto)
     {
         produto.Id = id;
         await _repo.AtualizarAsync(produto);
@@ -35,7 +38,7 @@ public class ProdutosController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> Deletar(Guid id)
+    public async Task<IActionResult> Deletar(string id)
     {
         await _repo.DeletarAsync(id);
         return NoContent();

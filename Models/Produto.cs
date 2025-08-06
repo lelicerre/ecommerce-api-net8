@@ -2,7 +2,7 @@
 
 public class Produto
 {
-    public Guid Id { get; set; }
+    public string Id { get; set; } = string.Empty; 
     public string Codigo { get; set; }
     public string Descricao { get; set; }
     public string CodigoDepartamento { get; set; }
