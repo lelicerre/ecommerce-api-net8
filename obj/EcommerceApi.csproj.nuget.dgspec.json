@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\lelu\\Documents\\GitHub\\ecommerce-api-net8\\EcommerceApi\\EcommerceApi.csproj": {}
+    "C:\\Users\\lelu\\Documents\\GitHub\\ecommerce-api-net8\\EcommerceApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\lelu\\Documents\\GitHub\\ecommerce-api-net8\\EcommerceApi\\EcommerceApi.csproj": {
+    "C:\\Users\\lelu\\Documents\\GitHub\\ecommerce-api-net8\\EcommerceApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\lelu\\Documents\\GitHub\\ecommerce-api-net8\\EcommerceApi\\EcommerceApi.csproj",
+        "projectUniqueName": "C:\\Users\\lelu\\Documents\\GitHub\\ecommerce-api-net8\\EcommerceApi.csproj",
         "projectName": "EcommerceApi",
-        "projectPath": "C:\\Users\\lelu\\Documents\\GitHub\\ecommerce-api-net8\\EcommerceApi\\EcommerceApi.csproj",
+        "projectPath": "C:\\Users\\lelu\\Documents\\GitHub\\ecommerce-api-net8\\EcommerceApi.csproj",
         "packagesPath": "C:\\Users\\lelu\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\lelu\\Documents\\GitHub\\ecommerce-api-net8\\EcommerceApi\\obj\\",
+        "outputPath": "C:\\Users\\lelu\\Documents\\GitHub\\ecommerce-api-net8\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\lelu\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -44,9 +44,25 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "dependencies": {
+            "Dapper": {
+              "target": "Package",
+              "version": "[2.1.66, )"
+            },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[9.0.4, )"
+            },
+            "Microsoft.Data.Sqlite": {
+              "target": "Package",
+              "version": "[9.0.8, )"
+            },
+            "Npgsql": {
+              "target": "Package",
+              "version": "[9.0.3, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[9.0.3, )"
             }
           },
           "imports": [
