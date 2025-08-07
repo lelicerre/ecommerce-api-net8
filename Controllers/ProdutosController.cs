@@ -20,6 +20,10 @@ public class ProdutosController : ControllerBase
     {
         var (produtos, total) = await _repo.ListarAsync(page + 1, size);
         var totalPages = (int)Math.Ceiling((double)total / size);
+        var first = page == 0;
+        var last = page + 1 >= totalPages;
+        var numberOfElements = produtos.Count();
+        var empty = numberOfElements == 0;
 
         return Ok(new
         {
@@ -33,30 +37,40 @@ public class ProdutosController : ControllerBase
                 paged = true,
                 unpaged = false
             },
-            last = page + 1 >= totalPages,
+            last,
             totalElements = total,
-            totalPages = totalPages,
+            totalPages,
             size,
             number = page,
-            first = page == 0,
-            numberOfElements = produtos.Count(),
-            empty = !produtos.Any()
+            sort = new { empty = true, sorted = false, unsorted = true },
+            first,
+            numberOfElements,
+            empty
         });
     }
 
     [HttpPost]
-    public async Task<IActionResult> Inserir(Produto produto)
+    public async Task<IActionResult> Criar([FromBody] Produto produto)
     {
         await _repo.InserirAsync(produto);
         return CreatedAtAction(nameof(Listar), new { id = produto.Id }, produto);
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Atualizar(string id, Produto produto)
+    public async Task<IActionResult> Atualizar(string id, [FromBody] Produto produto)
     {
-        produto.Id = id;
+        if (id != produto.Id)
+        {
+            return BadRequest(new ErrorDetails
+            {
+                Timestamp = DateTime.UtcNow,
+                Message = "ID do produto não corresponde ao da URL.",
+                Details = $"ID esperado: {id}, recebido: {produto.Id}"
+            });
+        }
+
         await _repo.AtualizarAsync(produto);
-        return NoContent();
+        return Ok(produto);
     }
 
     [HttpDelete("{id}")]

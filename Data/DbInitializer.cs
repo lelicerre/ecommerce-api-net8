@@ -17,10 +17,10 @@ public class DbInitializer
         var sql = @"
             CREATE TABLE IF NOT EXISTS Produtos (
                 Id TEXT PRIMARY KEY,
-                Codigo TEXT NOT NULL,
-                Descricao TEXT NOT NULL,
-                CodigoDepartamento TEXT NOT NULL,
-                Preco REAL NOT NULL,
+                Code TEXT NOT NULL,
+                Description TEXT NOT NULL,
+                Department TEXT NOT NULL,
+                Price REAL NOT NULL,
                 Status INTEGER NOT NULL,
                 Deletado INTEGER NOT NULL
             );";

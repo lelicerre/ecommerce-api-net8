@@ -28,22 +28,29 @@ public class ProdutoRepository
     public async Task InserirAsync(Produto produto)
     {
         produto.Id = Guid.NewGuid().ToString();
-        var sql = @"INSERT INTO Produtos (Id, Codigo, Descricao, CodigoDepartamento, Preco, Status, Deletado)
-                    VALUES (@Id, @Codigo, @Descricao, @CodigoDepartamento, @Preco, @Status, 0)";
-        await _provider.GetConnection().ExecuteAsync(sql, produto);
+
+        var sql = @"INSERT INTO Produtos (Id, Code, Description, Department, Status, Price, Deletado)
+                    VALUES (@Id, @Code, @Description, @Department, @Status, @Price, 0)";
+
+        var conn = _provider.GetConnection();
+        await conn.ExecuteAsync(sql, produto);
     }
 
     public async Task AtualizarAsync(Produto produto)
     {
-        var sql = @"UPDATE Produtos SET Codigo = @Codigo, Descricao = @Descricao,
-                    CodigoDepartamento = @CodigoDepartamento, Preco = @Preco, Status = @Status
+        var sql = @"UPDATE Produtos 
+                    SET Code = @Code, Description = @Description, Department = @Department, 
+                        Status = @Status, Price = @Price 
                     WHERE Id = @Id";
-        await _provider.GetConnection().ExecuteAsync(sql, produto);
+
+        var conn = _provider.GetConnection();
+        await conn.ExecuteAsync(sql, produto);
     }
 
     public async Task DeletarAsync(string id)
     {
         var sql = "UPDATE Produtos SET Deletado = 1 WHERE Id = @Id";
-        await _provider.GetConnection().ExecuteAsync(sql, new { Id = id });
+        var conn = _provider.GetConnection();
+        await conn.ExecuteAsync(sql, new { Id = id });
     }
 }
