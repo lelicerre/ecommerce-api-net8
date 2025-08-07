@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CopilotDiffPersistence">
+    <option name="pendingDiffs">
+      <map>
+        <entry key="$PROJECT_DIR$/Controllers/DepartamentosController.cs">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/Controllers/DepartamentosController.cs" />
+              <option name="originalContent" value="using Microsoft.AspNetCore.Mvc;&#10;using EcommerceApi.Models;&#10;&#10;namespace EcommerceApi.Controllers;&#10;&#10;/// &lt;summary&gt;&#10;/// Controller responsável por retornar a lista de departamentos disponíveis.&#10;/// &lt;/summary&gt;&#10;[ApiController]&#10;[Route(&quot;departamentos&quot;)]&#10;public class DepartamentosController : ControllerBase&#10;{&#10;    /// &lt;summary&gt;&#10;    /// Lista todos os departamentos disponíveis para o cadastro de produtos.&#10;    /// &lt;/summary&gt;&#10;    /// &lt;returns&gt;Lista de objetos contendo código e descrição de cada departamento.&lt;/returns&gt;&#10;    [HttpGet]&#10;    [ProducesResponseType(typeof(IEnumerable&lt;Departamento&gt;), StatusCodes.Status200OK)]&#10;    public IActionResult Listar()&#10;    {&#10;        var departamentos = new List&lt;Departamento&gt;&#10;        {&#10;            new() { Codigo = &quot;010&quot;, Descricao = &quot;BEBIDAS&quot; },&#10;            new() { Codigo = &quot;020&quot;, Descricao = &quot;CONGELADOS&quot; },&#10;            new() { Codigo = &quot;030&quot;, Descricao = &quot;LATICINIOS&quot; },&#10;            new() { Codigo = &quot;040&quot;, Descricao = &quot;VEGETAIS&quot; }&#10;        };&#10;&#10;        return Ok(departamentos);&#10;    }&#10;}" />
+              <option name="updatedContent" value="using Microsoft.AspNetCore.Mvc;&#10;using EcommerceApi.Models;&#10;using EcommerceApi.Data;&#10;using Dapper;&#10;&#10;namespace EcommerceApi.Controllers;&#10;&#10;/// &lt;summary&gt;&#10;/// Controller responsável por retornar a lista de departamentos disponíveis.&#10;/// &lt;/summary&gt;&#10;[ApiController]&#10;[Route(&quot;departamentos&quot;)]&#10;public class DepartamentosController : ControllerBase&#10;{&#10;    private readonly DbConnectionProvider _provider;&#10;&#10;    public DepartamentosController(DbConnectionProvider provider)&#10;    {&#10;        _provider = provider;&#10;    }&#10;&#10;    /// &lt;summary&gt;&#10;    /// Lista todos os departamentos disponíveis para o cadastro de produtos.&#10;    /// &lt;/summary&gt;&#10;    /// &lt;returns&gt;Lista de objetos contendo código e descrição de cada departamento.&lt;/returns&gt;&#10;    [HttpGet]&#10;    [ProducesResponseType(typeof(IEnumerable&lt;Departamento&gt;), StatusCodes.Status200OK)]&#10;    public IActionResult Listar()&#10;    {&#10;        using var conn = _provider.GetConnection();&#10;        var departamentos = conn.Query&lt;Departamento&gt;(&quot;SELECT Codigo, Descricao FROM Departamentos&quot;).ToList();&#10;        return Ok(departamentos);&#10;    }&#10;}" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

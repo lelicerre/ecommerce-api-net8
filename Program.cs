@@ -25,6 +25,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<DbConnectionProvider>();
 builder.Services.AddScoped<ProdutoRepository>();
 builder.Services.AddSingleton<DbInitializer>();
+builder.Services.AddScoped<DepartamentoRepository>();
 
 var app = builder.Build();
 
