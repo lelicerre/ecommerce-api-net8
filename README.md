@@ -76,8 +76,8 @@ http://localhost:8080/swagger
 - Não utiliza Entity Framework; todas as queries são SQL explícito com Dapper.
 - Código organizado por camadas: Controllers, Models, Repositories, Data.
 - Middleware global para tratamento de erros com padrão `ErrorDetails`.
-
----
+- **Paginação customizada:** Inicialmente, o desafio foi liberado para implementação em Java, mas posteriormente foi solicitado também em .NET. Por isso, a lógica de paginação foi implementada manualmente no endpoint de produtos, garantindo que o frontend Angular consuma ambas as APIs de forma idêntica, sem necessidade de ajustes.
+- [Repositório Java disponível aqui](https://github.com/lelicerre/ecommerce-api)---
 
 ## 📁 Organização do projeto
 
