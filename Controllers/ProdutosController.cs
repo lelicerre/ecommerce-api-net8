@@ -5,7 +5,7 @@ using EcommerceApi.Repositories;
 namespace EcommerceApi.Controllers;
 
 [ApiController]
-[Route("api/produtos")]
+[Route("produtos")]
 public class ProdutosController : ControllerBase
 {
     private readonly ProdutoRepository _repo;
@@ -16,10 +16,32 @@ public class ProdutosController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> Listar([FromQuery] int page = 1, [FromQuery] int size = 10)
+    public async Task<IActionResult> Listar([FromQuery] int page = 0, [FromQuery] int size = 10)
     {
-        var (produtos, total) = await _repo.ListarAsync(page, size);
-        return Ok(new { data = produtos, total, page, size });
+        var (produtos, total) = await _repo.ListarAsync(page + 1, size);
+        var totalPages = (int)Math.Ceiling((double)total / size);
+
+        return Ok(new
+        {
+            content = produtos,
+            pageable = new
+            {
+                pageNumber = page,
+                pageSize = size,
+                sort = new { empty = true, sorted = false, unsorted = true },
+                offset = page * size,
+                paged = true,
+                unpaged = false
+            },
+            last = page + 1 >= totalPages,
+            totalElements = total,
+            totalPages = totalPages,
+            size,
+            number = page,
+            first = page == 0,
+            numberOfElements = produtos.Count(),
+            empty = !produtos.Any()
+        });
     }
 
     [HttpPost]

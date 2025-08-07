@@ -4,7 +4,7 @@ using EcommerceApi.Models;
 namespace EcommerceApi.Controllers;
 
 [ApiController]
-[Route("api/departamentos")]
+[Route("departamentos")]
 public class DepartamentosController : ControllerBase
 {
     [HttpGet]
