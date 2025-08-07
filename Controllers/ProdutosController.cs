@@ -4,6 +4,9 @@ using EcommerceApi.Repositories;
 
 namespace EcommerceApi.Controllers;
 
+/// <summary>
+/// Controller responsável pelo CRUD de produtos.
+/// </summary>
 [ApiController]
 [Route("produtos")]
 public class ProdutosController : ControllerBase
@@ -15,7 +18,14 @@ public class ProdutosController : ControllerBase
         _repo = repo;
     }
 
+    /// <summary>
+    /// Lista todos os produtos com paginação.
+    /// </summary>
+    /// <param name="page">Número da página (começa em 0)</param>
+    /// <param name="size">Tamanho da página</param>
+    /// <returns>Lista paginada de produtos</returns>
     [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> Listar([FromQuery] int page = 0, [FromQuery] int size = 10)
     {
         var (produtos, total) = await _repo.ListarAsync(page + 1, size);
@@ -49,14 +59,28 @@ public class ProdutosController : ControllerBase
         });
     }
 
+    /// <summary>
+    /// Cria um novo produto.
+    /// </summary>
+    /// <param name="produto">Objeto do produto</param>
+    /// <returns>Produto criado</returns>
     [HttpPost]
+    [ProducesResponseType(typeof(Produto), StatusCodes.Status201Created)]
     public async Task<IActionResult> Criar([FromBody] Produto produto)
     {
         await _repo.InserirAsync(produto);
         return CreatedAtAction(nameof(Listar), new { id = produto.Id }, produto);
     }
 
+    /// <summary>
+    /// Atualiza um produto existente.
+    /// </summary>
+    /// <param name="id">ID do produto</param>
+    /// <param name="produto">Dados atualizados</param>
+    /// <returns>Produto atualizado</returns>
     [HttpPut("{id}")]
+    [ProducesResponseType(typeof(Produto), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Atualizar(string id, [FromBody] Produto produto)
     {
         if (id != produto.Id)
@@ -73,7 +97,13 @@ public class ProdutosController : ControllerBase
         return Ok(produto);
     }
 
+    /// <summary>
+    /// Realiza a exclusão lógica de um produto.
+    /// </summary>
+    /// <param name="id">ID do produto</param>
+    /// <returns>Status 204 se sucesso</returns>
     [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
     public async Task<IActionResult> Deletar(string id)
     {
         await _repo.DeletarAsync(id);
