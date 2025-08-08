@@ -42,7 +42,6 @@ http://localhost:8080/swagger
 ---
 
 ## 🔧 Funcionalidades implementadas
-
 ### Produtos
 
 - `GET /produtos` — Listagem paginada de produtos
@@ -107,3 +106,6 @@ ecommerce-api-net8/
 
 - Postman (requisições manuais)
 - Angular frontend acoplado (ecommerce-front)
+
+## Diagrama
+![img_1.png](img_1.png)
